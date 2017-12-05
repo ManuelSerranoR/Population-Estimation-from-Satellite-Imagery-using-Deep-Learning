@@ -39,7 +39,7 @@ Our goal in this section is to show that we can extract predictive value from ou
 \subsection{Logistic regression}
 \subsection{CNN from scratch}
 \subsection{Pretrained VGG architecture}
-The Vgg16 architecture is a 16 layer CNN developed for large scale image recognition by the Visual Geometry Group at the University of Oxford (\cite{SZ14}). This architecture won the ILSVRC-2014 ImageNet competition in 2014. We use the Keras version that has been obtained by directly converting the Caffe model provided by the authors.
+The Vgg16 architecture is a 16 layer CNN developed for large scale image recognition by the Visual Geometry Group at the University of Oxford (\cite{SZ14}). This architecture won the ILSVRC-2014 ImageNet competition in 2014. We use the Keras version that has been obtained by directly converting the Caffe model provided by the authors\footnote{https://gist.github.com/baraldilorenzo/07d7802847aaad0a35d3, however, we use the modified version adapted to the Fast.ai course.}.
 
 We used this CNN to perform multi-type classification with respect to eight population intervals:
 \begin{figure}[ht]
@@ -71,11 +71,13 @@ Vgg16 is designed to assign probability scores of an image belonging to 1000 dif
 To see if we can improve performance, we also attempted to retrain the ImageNet layer of the model (using the finetuned model above, to avoid starting with random weights in the final layer, which would cause the retrained layer to quickly move a long way from its optimized ImageNet weights): This gave us  validation accuracy of $\%$ and the validation set confusion matrix:
 
 \subsection{Comparison ?}
-To compare the accuracy of our models, we considered a balanced test set close to the area where our original sample was obtained. Since the set is balanced over the population intervals, the accuracy of random guessing is $1/8=12.5\%$.
+To compare the accuracy of our models on an independent test set, we considered a balanced set of images close to the area where our original sample was obtained. Since the set is balanced over the population intervals, the accuracy of random guessing is $1/8=12.5\%$.
 
 [...]
 
 To test our models on a different terrain, we obtain a small balanced test set from the San Francisco bay area.
+
+[...]
 
 \section{Deployment}
 After a successful validation of our models, deployment should be in the form of an automated software implementation, where decision makers can obtain the figure on the population of a particular area by simply feeding the neural network the corresponding satellite images.
@@ -85,6 +87,12 @@ However, every governmental agency using our model for decision making should be
 As features of areas populated by humans, in particular overall architecture, change rather slowly over time, one would expect a well trained model to be robust over a long period of time. Of course, the model should go through revalidation or, perhaps, retraining from time to time. A natural point for this to occur are the census years, when labeled data becomes available.
 
 Unless it is the explicit goal of using the model (e.g. in clendestine applications), one has to be aware that obtaining satellite images of people's properties raises obvious privacy issues. The respectful user should use a low enough resolution such that the details of individual's properties cannot be extracted from the image.
+
+\section{Possible further directions}
+
+There are many interesting questions arising in connection with using our models that we did not have the chance to investigate due to the lack of time and data acquisition difficulties.
+
+For example, we could have looked at different (preferrably larger) training sets containing different terrains, e.g., training in California and testing on the east coast. We could have also tried to perform population estimates on foreign countries to see how well our models generalize. For example, it would have been interesting to predict the population of North Korea and see how the measurement would correlate with the official figure. Finally, we could have used different population intervals to see if it increases accuracy.
 
 \appendix
 \section{Contribution of each team member to the project}
