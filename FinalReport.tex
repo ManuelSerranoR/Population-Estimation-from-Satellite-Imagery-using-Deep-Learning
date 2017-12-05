@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{setspace}   %Allows double spacing with the \doublespacing command
 \usepackage{lipsum} % Add dummy text
+\usepackage{graphicx}
 \begin{document}
 
 \title{Population prediction based on satellite imagery\\
@@ -14,7 +15,7 @@ Term Project Report}
 
 
 \section{Summary}
-In this project, we attempted to build models predicting population density based on satellite imagery. We achieve this by comparing spatially disaggregated census data on the continental United States (that is excluding Alaska and U.S. territories) to satellite images of the particular region. We use several approaches: 
+In this project, we attempted to build models predicting population density based on satellite imagery inspired by \cite{RHD17}. We achieve this by comparing spatially disaggregated census data on the continental United States (that is excluding Alaska and U.S. territories) to satellite images of the particular region. We use several approaches: 
 \begin{itemize}
 \item[(1)] naive logistic regression on the vectorized satellite images; 
 \item[(2)] convolutional neural network(CNN) built from scratch; \item[(3)] pre-trained CNN developed for image recognition (Vgg16).
@@ -23,11 +24,11 @@ In this project, we attempted to build models predicting population density base
 While our models do not achieve particularly high accuracy, they show considerable lift corresponding to random guessing. Perhaps not surprisingly, the pre-trained neural network showed the best performance of achieving $62\%$ accuracy. [Finish this with final conclusions]
 
 \section{Business understanding}
-The 'business' in question in this case is mostly non-profit, governmental application. In order to allocate resources, government agencies require knowledge on the geographical distribution of the country's population. In the absence of direct measurements in years between two censuses, these entities are forced to rely on ad-hoc methods to model the evolution of the population since the last census year.
+The 'business' in question in this case is mostly non-profit, governmental application. In order to allocate resources, government agencies require knowledge on the geographical distribution of the country's population. In the absence of direct measurements in years between two censuses, these entities are forced to rely on ad-hoc methods to model the evolution of the population since the last census year (\cite{L96}).
 
 Our project explores the possibility of obtaining direct measurements of the population of a particular area by looking at Satellite imagery. Such capability would be of great value in many decision making processes such as urban development, evacuation planning, and gauging future demand for food, water, energy, and services. For example, according to the US General Accounting Office, more than 70 federal programs distribute tens of billions of dollars annually on the basis of population estimates.
 
-Furthermore, censuses in many countries are non-representative due to limited civil registration systems or are outright fraudulent. In this case, having an independent way to estimate population could be beneficial in the optimal allocation of humanitarian aid or for clandestine purposes.
+Furthermore, censuses in many countries are non-representative due to limited civil registration systems or are outright fraudulent (\cite{BDYPHN06}). In this case, having an independent way to estimate population could be beneficial in the optimal allocation of humanitarian aid or for clandestine purposes.
 
 \section{Data}
 \subsection{Data understanding}
@@ -38,7 +39,44 @@ Our goal in this section is to show that we can extract predictive value from ou
 \subsection{Logistic regression}
 \subsection{CNN from scratch}
 \subsection{Pretrained VGG architecture}
+The Vgg16 architecture is a 16 layer CNN developed for large scale image recognition by the Visual Geometry Group at the University of Oxford (\cite{SZ14}). This architecture won the ILSVRC-2014 ImageNet competition in 2014. We use the Keras version that has been obtained by directly converting the Caffe model provided by the authors.
+
+We used this CNN to perform multi-type classification with respect to eight population intervals:
+\begin{figure}[ht]
+\center
+\begin{tabular}{ |c|c| } 
+\hline
+Population interval & Number of images\\
+\hline
+0-1& 154\\ 
+1-10& 782\\ 
+10-50& 2813\\
+50-100& 908\\
+100- 500& 1294\\
+500-1000& 529\\
+1000-2000& 401\\
+2000-11000& 119\\
+Total& 7000\\
+\hline
+\end{tabular}
+\caption{Population intervals and the number of corresponding images in our dataset of images. The upper end of the intervals is inclusive, while the lower end is excluded.}
+\end{figure}
+
+Vgg16 is designed to assign probability scores of an image belonging to 1000 different ImageNet categories. We finetune the network according to our population intervals, that is we use the ImageNet scores as features to predict our population intervals (so essentially we assign scores that a satellite image is a dog, cat, corn, ketchup, etc. and then use these scores as inputs for classification). After performing a random $80\%-20\%$ split between the training and validation set, we performed 30 training epochs using the ADAM\footnote{https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/} algorithm with learning rate $0.001$ and categorical cross-entropy as our loss function. This gave us validation accuracy of $62\%$ and validation loss $1.0054$. Moreover the confusion matrix on the validation set is:
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.45]{conf_mx_Zsolt1.png}
+\end{figure}
+
+To see if we can improve performance, we also attempted to retrain the ImageNet layer of the model (using the finetuned model above, to avoid starting with random weights in the final layer, which would cause the retrained layer to quickly move a long way from its optimized ImageNet weights): This gave us  validation accuracy of $\%$ and the validation set confusion matrix:
+
 \subsection{Comparison ?}
+To compare the accuracy of our models, we considered a balanced test set close to the area where our original sample was obtained. Since the set is balanced over the population intervals, the accuracy of random guessing is $1/8=12.5\%$.
+
+[...]
+
+To test our models on a different terrain, we obtain a small balanced test set from the San Francisco bay area.
+
 \section{Deployment}
 After a successful validation of our models, deployment should be in the form of an automated software implementation, where decision makers can obtain the figure on the population of a particular area by simply feeding the neural network the corresponding satellite images.
 
@@ -55,4 +93,14 @@ Unless it is the explicit goal of using the model (e.g. in clendestine applicati
 \subsection{Zsolt Pajor-Gyulai}
 \subsection{Manuel Serrano}
 
+\begin{thebibliography}{9}
+
+\bibitem[BDYPHN06]{BDYPHN06} \textsc{D. Balk, U. Deichmann, G. Yetman, F. Pozzi, S. Hay, A. Nelson} \textit{ Determining global population distribution: methods, applications, and data.} Advances in parasitology, Vol 62, p119-156 (2006)
+
+\bibitem[L96]{L96} \textsc{J. Long}\textit{ Postcensal population estimates: States counties and places.} Indirect Estimators in US Federal Programs, p59-82, Springer (1996)
+
+\bibitem[RHD17]{RHD17}  \textsc{C. Robinson, F. Hohman, B. Dilkina}\textit{ A Deep Learning Approach for Population Estimation from Satellite Imagery.} arXiv preprint arXiv:1708.09086 (2017)
+
+\bibitem[SZ14]{SZ14} \textsc{K. Simonyan, A. Zisserman} \textit{ Very Deep Convolutional Networks for Large-Scale Image Recognition} arXiv preprint arXiv:1409.1556
+\end{thebibliography}
 \end{document}
