@@ -34,11 +34,20 @@ Furthermore, censuses in many countries are non-representative due to limited ci
 
 \subsection{Data preparation}
 \section{Modeling and evaluation}
+Our goal in this section is to show that we can extract predictive value from our data, that is, our models provide a non-unit lift compared to random guessing.
 \subsection{Logistic regression}
 \subsection{CNN from scratch}
 \subsection{Pretrained VGG architecture}
 \subsection{Comparison ?}
 \section{Deployment}
+After a successful validation of our models, deployment should be in the form of an automated software implementation, where decision makers can obtain the figure on the population of a particular area by simply feeding the neural network the corresponding satellite images.
+
+However, every governmental agency using our model for decision making should be aware of the imperfection of our predictions. Accordingly, whenever human life depends on the results (e.g. evacuation planning, or disaster relief funds), the policymakers should make sure to have appropriate cushion built into their actions. To provide further security, the cautious user should use our models in conjunction with other techniques and be alerted by huge discrepancies. This of course applies to all other applications with, perhaps, less severe consequences.
+
+As features of areas populated by humans, in particular overall architecture, change rather slowly over time, one would expect a well trained model to be robust over a long period of time. Of course, the model should go through revalidation or, perhaps, retraining from time to time. A natural point for this to occur are the census years, when labeled data becomes available.
+
+Unless it is the explicit goal of using the model (e.g. in clendestine applications), one has to be aware that obtaining satellite images of people's properties raises obvious privacy issues. The respectful user should use a low enough resolution such that the details of individual's properties cannot be extracted from the image.
+
 \appendix
 \section{Contribution of each team member to the project}
 \subsection{Yassine Kadiri}
