@@ -59,7 +59,7 @@ Population interval & Number of images\\
 Total& 7000\\
 \hline
 \end{tabular}
-\caption{Population intervals and the number of corresponding images in our dataset of images. The upper end of the intervals is inclusive, while the lower end is excluded.}
+\caption{Population intervals and the number of corresponding images in our dataset of images. The upper end of the intervals is inclusive, while the lower end is excluded, except for the very first interval.}
 \end{figure}
 
 Vgg16 is designed to assign probability scores of an image belonging to 1000 different ImageNet categories. We finetune the network according to our population intervals, that is we use the ImageNet scores as features to predict our population intervals (so essentially we assign scores that a satellite image is a dog, cat, corn, ketchup, etc. and then use these scores as inputs for classification). After performing a random $80\%-20\%$ split between the training and validation set, we performed 30 training epochs using the ADAM\footnote{https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/} algorithm with learning rate $0.001$ and categorical cross-entropy as our loss function. This gave us validation accuracy of $62\%$ and validation loss $1.0054$. Moreover the confusion matrix on the validation set is:
@@ -91,6 +91,7 @@ Unless it is the explicit goal of using the model (e.g. in clendestine applicati
 \subsection{Yassine Kadiri}
 \subsection{Santiago Novoa}
 \subsection{Zsolt Pajor-Gyulai}
+Researched the paper \cite{RHD17}, when the project proposal came up. Worked on the write-up of the project proposal. Learned how to use the Vgg architecture (and how to do any sort of deep learning in the first place) from the online Fast.ai course. Built the Vgg model and wrote the corresponding section in this write-up. Wrote the first version of the 'Summary', 'Business understanding', and 'Deployment' sections of this write-up.
 \subsection{Manuel Serrano}
 
 \begin{thebibliography}{9}
