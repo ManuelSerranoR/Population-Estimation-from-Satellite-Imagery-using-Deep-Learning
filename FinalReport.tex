@@ -17,13 +17,17 @@ Term Project Report}
 In this project, we attempted to build models predicting population density based on satellite imagery. We achieve this by comparing spatially disaggregated census data on the continental United States (that is excluding Alaska and U.S. territories) to satellite images of the particular region. We use several approaches: 
 \begin{itemize}
 \item[(1)] naive logistic regression on the vectorized satellite images; 
-\item[(2)] convolutional neural network(CNN) built from scratch; \item[(3)] pretrained CNN developed for image recognition (Vgg16).
+\item[(2)] convolutional neural network(CNN) built from scratch; \item[(3)] pre-trained CNN developed for image recognition (Vgg16).
 \end{itemize}
 
-While our models do not achieve particularly high accuracy, they show considerable lift corresponding to random guessing. Perhaps not surprisingly, the pre-trained neural network showed the best performance of achieving $62\%$ accuracy.
+While our models do not achieve particularly high accuracy, they show considerable lift corresponding to random guessing. Perhaps not surprisingly, the pre-trained neural network showed the best performance of achieving $62\%$ accuracy. [Finish this with final conclusions]
 
 \section{Business understanding}
+The 'business' in question in this case is mostly non-profit, governmental application. In order to allocate resources, government agencies require knowledge on the geographical distribution of the country's population. In the absence of direct measurements in years between two censuses, these entities are forced to rely on ad-hoc methods to model the evolution of the population since the last census year.
 
+Our project explores the possibility of obtaining direct measurements of the population of a particular area by looking at Satellite imagery. Such capability would be of great value in many decision making processes such as urban development, evacuation planning, and gauging future demand for food, water, energy, and services. For example, according to the US General Accounting Office, more than 70 federal programs distribute tens of billions of dollars annually on the basis of population estimates.
+
+Furthermore, censuses in many countries are non-representative due to limited civil registration systems or are outright fraudulent. In this case, having an independent way to estimate population could be beneficial in the optimal allocation of humanitarian aid or for clandestine purposes.
 
 \section{Data}
 \subsection{Data understanding}
