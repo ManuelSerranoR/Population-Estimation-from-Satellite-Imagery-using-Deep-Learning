@@ -52,7 +52,7 @@ The complete matrix, as available from the Socioeconomic Data and Applications C
 
 In the original data, areas where there is no reported population (for example outside US territory) have a value of -9999. For our purposes, we will replace these values with zeros to avoid potential computational errors. The end result is a very sparse matrix. 
 
-The second important dataset consists of Landsat 7 satellite images of the geographic regions where we want to train our machine learning algorithms to predict population. These images were extracted from Google Earth Engine, which is a cloud computing platform for processing satellite imagery and other Earth observation data. It provides access to a large warehouse of satellite imagery and the computational power needed to analyze those images using Google's cloud infrastructure. While this is a powerful resource, there is a limitation in flexibility because free data access is restricted; the idea basically is to make user experience really easy to run computations on their platform using Google products such as Google’s Compute Engine and to export results only afterwards. Therefore exporting images is possible but highly non-trivial. In fact this simple task took up most of our effort during this project. 
+The second important dataset consists of Landsat 7 satellite images of the geographic regions where we want to train our machine learning algorithms to predict population. Google Earth Engine, which is a cloud computing platform for processing satellite imagery and other Earth observation data. It provides access to a large warehouse of satellite imagery and the computational power needed to analyze those images using Google's cloud infrastructure. While this is a powerful resource, there is a limitation in flexibility because free data access is restricted; the idea basically is to make user experience really easy to run computations on their platform using Google products such as Google’s Compute Engine and to export results only afterwards. Therefore exporting images is possible but highly non-trivial. In fact this simple task took up most of our effort during this project. 
 
 In particular, we were unable to extract images corresponding to the exact census year of 2010 and, as the next best approximation, elected to use recent imagery. While, arguably, the landscape does not change significantly over such short time periods, this certainly contributed to our irreducible error.
 
@@ -271,7 +271,7 @@ However, every governmental agency using our model for decision making should be
 
 As features of areas populated by humans, in particular overall architecture, change rather slowly over time, one would expect a well trained model to be robust over a long period of time. Of course, the model should go through revalidation or, perhaps, retraining from time to time. A natural point for this to occur are the census years, when labeled data becomes available.
 
-Unless it is the explicit goal of using the model (e.g. in clendestine applications), one has to be aware that obtaining satellite images of people's properties raises obvious privacy issues. The respectful user should use a low enough resolution such that the details of individual's properties cannot be extracted from the image.
+Unless it is the explicit goal of using the model (e.g. in clandestine applications), one has to be aware that obtaining satellite images of people's properties raises obvious privacy issues. The respectful user should use a low enough resolution such that the details of individual's properties cannot be extracted from the image.
 
 \section{Possible further directions}
 
@@ -285,12 +285,12 @@ For example, we could have looked at different (preferrably larger) training set
 First found the article when looking for a project idea. Found the datasources (US Census and satellite imagery). Processed the US census data (ASCII File) in order to display it as a DataFrame and keep record of all the other parameters included in the file. Vectorized the images and labeled them. Implemented the One-vs-all classifier. Wrote the first version of the project proposal and the Logistic Regression section in this report. Contributed to the Possible further directions section.
 \subsection{Santiago Novoa}
 My contribution on this project was twofold.
-First I worked on the data mining, creating the dataset by Taking a semi processed census matrix interpreting the data to produce meaningful results we could use. With this as a basis I worked on creating a method for obtaining the satellite imagery that completes the data set, and matches census matrix.
-Secondly I contributed secondarily on the implementation of the CNN in Tensorflow for this project. Lastly, I wrote the data section of the report.
+First I worked on the data mining, creating the dataset by taking a semi processed census matrix, and interpreting the data to produce meaningful results we could use. With this as a basis I worked on creating a method for obtaining the satellite imagery that completes the data set, and matches the census matrix.
+Also, I contributed secondarily on the implementation of the CNN in Tensorflow for this project. Lastly, I wrote the data section of the report.
 \subsection{Zsolt Pajor-Gyulai}
 Researched the paper \cite{RHD17}, when the project proposal came up. Worked on the write-up of the project proposal. Learned how to use the Vgg architecture (and how to do any sort of deep learning in the first place) from the online Fast.ai course. Built the Vgg model and wrote the corresponding section in this write-up. Wrote the first version of the 'Summary', 'Business understanding', and 'Deployment' sections of this write-up.
-\subsection{Manuel Serrano}
 
+\subsection{Manuel Serrano}
 Worked on the data mining and feature engineering: imagery scraping from Google Maps using Python API, census data cleaning and preparation to accurately match population data with corresponding satellite image. Also developed CNN in pure Tensorflow from scratch. Learnt different State-of-the-art types of optimizers and training techniques in Deep Learning and implemented in raw Tensorflow to get real results.
 
 \begin{thebibliography}{9}
